@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plano de Treino Semanal</title>
+    <!-- Carrega o Tailwind CSS para estilização fácil e responsiva -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Define a fonte Inter como padrão */
+        body {
+            font-family: "Inter", sans-serif;
+        }
+        /* Estilo para elementos que aparecem após o carregamento */
+        .loading-hidden {
+            display: none;
+        }
+        /* Estilos base para o plano de treino estático (para exibição, não para interação de registro) */
+        .plan-details {
+            border: 1px solid #ccc;
+            border-radius: 0.5rem; /* rounded-md */
+            margin-bottom: 1rem; /* mb-4 */
+            background-color: #fff; /* bg-white */
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); /* shadow-sm */
+        }
+        .plan-summary {
+            font-size: 1.25rem; /* text-xl */
+            font-weight: 700; /* font-bold */
+            padding: 1rem; /* p-4 */
+            cursor: pointer;
+            outline: none;
+            background-color: #f3f4f6; /* bg-gray-100 */
+            border-radius: 0.5rem; /* rounded-md */
+            transition: background-color 0.2s ease;
+        }
+        .plan-summary:hover {
+            background-color: #e5e7eb; /* bg-gray-200 */
+        }
+        .plan-details ul {
+            list-style-type: none;
+            padding: 0.5rem 1rem 1rem 1rem; /* py-2 px-4 pb-4 */
+            margin: 0;
+            background-color: #fff; /* bg-white */
+        }
+        .plan-details li {
+            padding: 0.5rem; /* p-2 */
+            margin-bottom: 0.5rem; /* mb-2 */
+            border-radius: 0.25rem; /* rounded */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f9fafb; /* bg-gray-50 */
+            transition: background-color 0.3s ease;
+            border: 1px solid #e5e7eb; /* border border-gray-200 */
+        }
+        .plan-details li span:first-child {
+            font-weight: 500; /* font-medium */
+            color: #4b5563; /* text-gray-700 */
+        }
+        .calistenia {
+            font-style: italic;
+            color: #6b7280; /* text-gray-500 */
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-500 via-purple-600 to-pink-500 min-h-screen flex items-center justify-center p-4">
+
+    <div class="bg-white p-6 md:p-8 rounded-2xl shadow-2xl max-w-2xl w-full text-center space-y-6 transform transition-all duration-300">
+        <h1 class="text-3xl md:text-4xl font-extrabold text-gray-800 mb-4">Acompanhamento de Treinos</h1>
+        <p class="text-gray-600 text-md md:text-lg">Selecione uma data para registrar e ver seu progresso.</p>
+
+        <!-- Loading indicator -->
+        <div id="loadingIndicator" class="flex flex-col items-center justify-center py-8">
+            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
+            <p class="mt-4 text-gray-700 font-semibold">Carregando...</p>
+        </div>
+
+        <!-- Conteúdo do App (oculto até que o Firebase esteja pronto) -->
+        <div id="appContent" class="loading-hidden space-y-6">
+            <p id="userIdDisplay" class="text-sm text-gray-500 break-words mb-4">ID do Usuário: <span class="font-mono text-gray-700"></span></p>
+
+            <!-- Seletor de Data -->
+            <div class="bg-gray-50 p-4 rounded-xl shadow-md space-y-3">
+                <h2 class="text-2xl font-bold text-gray-700">Escolher Dia do Treino</h2>
+                <input type="date" id="trainingDateInput"
+                       class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent">
+            </div>
+
+            <!-- Exercícios do Dia (Dinâmico) -->
+            <div class="bg-gray-50 p-6 rounded-xl shadow-md space-y-6 mt-6">
+                <h2 class="text-2xl font-bold text-gray-700">Exercícios para <span id="selectedDateDisplay" class="text-blue-600">o dia selecionado</span></h2>
+                <div id="exercisesContainer" class="space-y-4">
+                    <!-- Exercícios e seu histórico serão carregados aqui -->
+                    <p class="text-gray-500 text-center">Selecione uma data para ver os exercícios ou este dia não tem treino planejado.</p>
+                </div>
+                <button id="saveDailyWorkoutBtn" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-lg shadow-md transition-colors duration-200 focus:outline-none focus:ring-4 focus:ring-green-300">
+                    Salvar Treino do Dia
+                </button>
+                <div id="errorMessage" class="text-red-600 text-sm mt-2 hidden"></div>
+            </div>
+
+            <!-- Seu Plano de Treino Semanal (Estático, para referência) -->
+            <div class="bg-white p-6 md:p-8 rounded-2xl shadow-2xl max-w-2xl w-full text-center space-y-6 mt-8">
+                <h2 class="text-3xl md:text-4xl font-extrabold text-gray-800 mb-4">Meu Plano de Treino Semanal</h2>
+                <div class="section-principios text-left pb-4 mb-5 border-b-2 border-gray-200">
+                    <h3 class="text-2xl font-bold text-gray-700 mb-2">Princípios do Treino</h3>
+                    <ul class="list-disc list-inside text-gray-600 text-lg space-y-1">
+                        <li>3 a 4 séries de 8 a 12 repetições por exercício (a menos que seja indicado o contrário).</li>
+                        <li>Descanso de 60 a 90 segundos entre as séries.</li>
+                        <li>Sobrecarga Progressiva a cada 4 a 6 semanas.</li>
+                    </ul>
+                </div>
+
+                <details class="plan-details">
+                    <summary class="plan-summary">Dia 1: Empurrar A</summary>
+                    <ul>
+                        <li><span>Supino Inclinado com Halteres</span></li>
+                        <li><span>Supino Reto com Barra</span></li>
+                        <li><span>Desenvolvimento de Ombro com Halteres (Sentado)</span></li>
+                        <li><span>Crucifixo na Máquina ou Cabo</span></li>
+                        <li><span>Extensão de Tríceps na Polia Alta</span></li>
+                        <li class="calistenia"><span>Complemento Calistenia: Flexão no Chão (com os pés elevados)</span></li>
+                    </ul>
+                </details>
+
+                <details class="plan-details">
+                    <summary class="plan-summary">Dia 2: Puxar A</summary>
+                    <ul>
+                        <li><span>Puxada Alta (Lat Pulldown)</span></li>
+                        <li><span>Remada Sentada (Cable Row)</span></li>
+                        <li><span>Remada Curvada com Halteres (Unilateral)</span></li>
+                        <li><span>Rosca Direta com Barra EZ</span></li>
+                        <li><span>Rosca Martelo com Halteres</span></li>
+                        <li class="calistenia"><span>Complemento Calistenia: Puxada na Barra Fixa (Assistida)</span></li>
+                    </ul>
+                </details>
+
+                <details class="plan-details">
+                    <summary class="plan-summary">Dia 3: Pernas e Core</summary>
+                    <ul>
+                        <li><span>Agachamento Livre com Barra</span></li>
+                        <li><span>Leg Press</span></li>
+                        <li><span>Elevação Pélvica com Barra (Glute Bridge)</span></li>
+                        <li><span>Core: Prancha (Plank) no chão com peso nas costas (45-60s)</span></li>
+                        <li><span>Core: Elevação de Pernas Pendurado na Barra (3x10-15)</span></li>
+                    </ul>
+                </details>
+
+                <details class="plan-details">
+                    <summary class="plan-summary">Dia 4: Empurrar B</summary>
+                    <ul>
+                        <li><span>Desenvolvimento de Ombro com Barra (Sentado)</span></li>
+                        <li><span>Elevação Lateral com Halteres</span></li>
+                        <li><span>Flexão de Ombro na Parede (Pike Push-up)</span></li>
+                        <li><span>Tríceps Testa com Barra EZ</span></li>
+                        <li><span>Mergulho no Banco (Bench Dips)</span></li>
+                        <li class="calistenia"><span>Complemento Calistenia: Wall Handstand (Parada de Mão na Parede)</span></li>
+                    </ul>
+                </details>
+
+                <details class="plan-details">
+                    <summary class="plan-summary">Dia 5: Puxar B</summary>
+                    <ul>
+                        <li><span>Barra Fixa (Pull-up)</span></li>
+                        <li><span>Deadlift (Levantamento Terra)</span></li>
+                        <li><span>Remada Unilateral com Halter</span></li>
+                        <li><span>Face Pull</span></li>
+                        <li><span>Hang Passivo na Barra (30-60s)</span></li>
+                        <li><span>Rosca Concentrada com Halter</span></li>
+                    </ul>
+                </details>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDKs -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, query, where, getDocs, orderBy, limit, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // Global variables provided by the Canvas environment
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+
+        let app, db, auth, userId = null;
+        let isAuthReady = false;
+
+        // Elements
+        const loadingIndicator = document.getElementById('loadingIndicator');
+        const appContent = document.getElementById('appContent');
+        const userIdDisplay = document.getElementById('userIdDisplay').querySelector('span');
+        const trainingDateInput = document.getElementById('trainingDateInput');
+        const selectedDateDisplay = document.getElementById('selectedDateDisplay');
+        const exercisesContainer = document.getElementById('exercisesContainer');
+        const saveDailyWorkoutBtn = document.getElementById('saveDailyWorkoutBtn');
+        const errorMessage = document.getElementById('errorMessage');
+
+        // Estrutura para armazenar o plano de treino semanal extraído do HTML
+        const weeklyWorkoutPlan = {};
+
+        // Mapeamento de Date.getDay() (0=Dom, 1=Seg, ...) para as chaves do weeklyWorkoutPlan
+        // Assumimos que "Dia 1" é Segunda-feira e segue em sequência.
+        const dayOfWeekToPlanKey = {
+            1: "Dia 1: Empurrar A", // Segunda-feira
+            2: "Dia 2: Puxar A", // Terça-feira
+            3: "Dia 3: Pernas e Core", // Quarta-feira
+            4: "Dia 4: Empurrar B", // Quinta-feira
+            5: "Dia 5: Puxar B", // Sexta-feira
+            // Sábado (6) e Domingo (0) são considerados dias de descanso sem plano específico aqui
+        };
+
+        /**
+         * Inicializa o Firebase e a autenticação.
+         */
+        async function initializeFirebase() {
+            try {
+                app = initializeApp(firebaseConfig);
+                auth = getAuth(app);
+                db = getFirestore(app);
+
+                // Listener para o estado de autenticação
+                onAuthStateChanged(auth, async (user) => {
+                    if (user) {
+                        userId = user.uid;
+                        userIdDisplay.textContent = userId;
+                        console.log("Usuário autenticado:", userId);
+                        isAuthReady = true;
+                        loadingIndicator.classList.add('hidden'); // Esconde o loading
+                        appContent.classList.remove('loading-hidden'); // Mostra o conteúdo do app
+
+                        // Define a data de hoje como padrão no input
+                        const today = new Date();
+                        const yyyy = today.getFullYear();
+                        const mm = String(today.getMonth() + 1).padStart(2, '0'); // Mês é 0-indexed
+                        const dd = String(today.getDate()).padStart(2, '0');
+                        trainingDateInput.value = `${yyyy}-${mm}-${dd}`;
+                        
+                        // Primeiro, parseia o plano de treino do HTML
+                        parseWeeklyWorkoutPlanFromHtml();
+                        
+                        // Carrega os exercícios para a data padrão
+                        await loadExercisesForSelectedDate();
+
+                    } else {
+                        // Tenta autenticar com token ou anonimamente
+                        if (initialAuthToken) {
+                            await signInWithCustomToken(auth, initialAuthToken);
+                        } else {
+                            await signInAnonymously(auth);
+                        }
+                    }
+                });
+            } catch (error) {
+                console.error("Erro ao inicializar Firebase ou autenticar:", error);
+                errorMessage.textContent = `Erro ao carregar o aplicativo. Tente novamente. Detalhes: ${error.message}`;
+                errorMessage.classList.remove('hidden');
+                loadingIndicator.classList.add('hidden');
+            }
+        }
+
+        /**
+         * Parseia o plano de treino semanal diretamente do HTML.
+         */
+        function parseWeeklyWorkoutPlanFromHtml() {
+            document.querySelectorAll('.plan-details').forEach(detailsElement => {
+                const dayTitle = detailsElement.querySelector('.plan-summary').textContent.trim();
+                const exercises = [];
+                detailsElement.querySelectorAll('ul li span:first-child').forEach(span => {
+                    exercises.push(span.textContent.trim());
+                });
+                weeklyWorkoutPlan[dayTitle] = exercises;
+            });
+            console.log("Plano de treino semanal parseado:", weeklyWorkoutPlan);
+        }
+
+        /**
+         * Carrega os exercícios para a data selecionada e o histórico.
+         */
+        async function loadExercisesForSelectedDate() {
+            if (!isAuthReady || !userId) {
+                console.error("Firebase não pronto ou usuário não autenticado.");
+                return;
+            }
+
+            const selectedDateString = trainingDateInput.value;
+            const selectedDate = new Date(selectedDateString + 'T00:00:00'); // Garante fuso horário local
+            selectedDateDisplay.textContent = selectedDate.toLocaleDateString('pt-BR');
+            exercisesContainer.innerHTML = ''; // Limpa a lista existente
+
+            if (!selectedDateString) {
+                exercisesContainer.innerHTML = '<p class="text-gray-500 text-center">Selecione uma data para ver os exercícios.</p>';
+                return;
+            }
+
+            const dayOfWeek = selectedDate.getDay(); // 0 = Domingo, 1 = Segunda, ..., 6 = Sábado
+            const currentPlanDayKey = dayOfWeekToPlanKey[dayOfWeek];
+
+            if (!currentPlanDayKey || !weeklyWorkoutPlan[currentPlanDayKey]) {
+                exercisesContainer.innerHTML = '<p class="text-gray-500 text-center">Este dia não tem treino planejado no seu plano semanal.</p>';
+                return;
+            }
+
+            const exercisesForToday = weeklyWorkoutPlan[currentPlanDayKey];
+
+            for (const exerciseName of exercisesForToday) {
+                const exerciseDiv = document.createElement('div');
+                exerciseDiv.className = 'bg-white p-4 rounded-lg shadow-sm space-y-2 text-left border border-gray-200';
+                exerciseDiv.innerHTML = `
+                    <h3 class="font-semibold text-lg text-gray-800">${exerciseName}</h3>
+                    <div class="history-display text-sm text-gray-600">
+                        <p class="font-medium mb-1">Últimos Registros:</p>
+                        <ul id="history-${exerciseName.replace(/\s/g, '-')}" class="list-disc list-inside text-gray-500">
+                            <li>Carregando histórico...</li>
+                        </ul>
+                    </div>
+                    <div class="flex space-x-2 items-center">
+                        <input type="number" placeholder="Peso (kg)" step="0.5"
+                               data-exercise-name="${exerciseName}"
+                               class="weight-input w-1/2 p-2 border border-gray-300 rounded-md focus:ring-1 focus:ring-blue-400 focus:border-transparent">
+                        <input type="number" placeholder="Repetições" step="1"
+                               data-exercise-name="${exerciseName}"
+                               class="reps-input w-1/2 p-2 border border-gray-300 rounded-md focus:ring-1 focus:ring-blue-400 focus:border-transparent">
+                    </div>
+                `;
+                exercisesContainer.appendChild(exerciseDiv);
+                await loadExerciseHistory(exerciseName);
+            }
+        }
+
+        /**
+         * Carrega o histórico de um exercício específico.
+         * @param {string} exerciseName - O nome do exercício.
+         */
+        async function loadExerciseHistory(exerciseName) {
+            const historyListElement = document.getElementById(`history-${exerciseName.replace(/\s/g, '-')}`);
+            if (!historyListElement) return;
+
+            historyListElement.innerHTML = ''; // Limpa o "Carregando histórico..."
+
+            try {
+                const workoutLogsRef = collection(db, `artifacts/${appId}/users/${userId}/training_logs`);
+                const q = query(
+                    workoutLogsRef,
+                    where("exerciseName", "==", exerciseName)
+                );
+                const querySnapshot = await getDocs(q);
+
+                if (querySnapshot.empty) {
+                    historyListElement.innerHTML = '<li>Nenhum registro anterior.</li>';
+                    return;
+                }
+
+                const allLogs = [];
+                querySnapshot.forEach((doc) => {
+                    allLogs.push(doc.data());
+                });
+
+                // Ordena os treinos em memória por timestamp (mais recente primeiro) e limita a 3
+                const sortedLogs = allLogs.sort((a, b) => {
+                    // Garante que timestamp é um objeto Date para comparação
+                    const timestampA = a.timestamp && typeof a.timestamp.toDate === 'function' ? a.timestamp.toDate() : new Date(0);
+                    const timestampB = b.timestamp && typeof b.timestamp.toDate === 'function' ? b.timestamp.toDate() : new Date(0);
+                    return timestampB.getTime() - timestampA.getTime();
+                }).slice(0, 3);
+
+                sortedLogs.forEach((data) => {
+                    const date = data.timestamp ? new Date(data.timestamp.toDate()).toLocaleDateString('pt-BR') : 'N/A';
+                    const listItem = document.createElement('li');
+                    listItem.textContent = `${data.weight} kg x ${data.reps} rep. (${date})`;
+                    historyListElement.appendChild(listItem);
+                });
+            } catch (error) {
+                console.error(`Erro ao carregar histórico para ${exerciseName}:`, error);
+                historyListElement.innerHTML = `<li>Erro ao carregar histórico.</li>`;
+            }
+        }
+
+        /**
+         * Salva todos os registros de treino para o dia selecionado.
+         */
+        async function saveDailyWorkout() {
+            if (!isAuthReady || !userId) {
+                errorMessage.textContent = "Aguarde, o aplicativo ainda está carregando ou houve um erro de autenticação.";
+                errorMessage.classList.remove('hidden');
+                return;
+            }
+
+            const selectedDate = trainingDateInput.value;
+            if (!selectedDate) {
+                errorMessage.textContent = "Por favor, selecione uma data para salvar o treino.";
+                errorMessage.classList.remove('hidden');
+                return;
+            }
+
+            errorMessage.classList.add('hidden'); // Esconde a mensagem de erro
+
+            const weightInputs = document.querySelectorAll('#exercisesContainer .weight-input');
+            const repsInputs = document.querySelectorAll('#exercisesContainer .reps-input');
+            const newLogs = [];
+
+            // Coleta os dados dos inputs
+            for (let i = 0; i < weightInputs.length; i++) {
+                const exerciseName = weightInputs[i].dataset.exerciseName;
+                const weight = parseFloat(weightInputs[i].value);
+                const reps = parseInt(repsInputs[i].value);
+
+                // Só adiciona se ambos peso e repetições forem números válidos e maiores que zero
+                if (!isNaN(weight) && weight >= 0 && !isNaN(reps) && reps > 0) {
+                    newLogs.push({
+                        date: selectedDate, // Formato YYYY-MM-DD
+                        exerciseName: exerciseName,
+                        weight: weight,
+                        reps: reps,
+                        timestamp: serverTimestamp(), // Usa o timestamp do servidor
+                        userId: userId
+                    });
+                } else if ((weightInputs[i].value !== '' && (isNaN(weight) || weight < 0)) || (repsInputs[i].value !== '' && (isNaN(reps) || reps < 0))) {
+                     // Caso o usuário preencha um campo incorretamente, mas não ambos
+                    errorMessage.textContent = "Alguns campos de peso ou repetições estão inválidos. Apenas registros válidos serão salvos.";
+                    errorMessage.classList.remove('hidden');
+                }
+            }
+
+            if (newLogs.length === 0) {
+                errorMessage.textContent = "Nenhum registro válido para salvar. Preencha pelo menos um exercício corretamente.";
+                errorMessage.classList.remove('hidden');
+                return;
+            }
+
+            try {
+                const workoutLogsRef = collection(db, `artifacts/${appId}/users/${userId}/training_logs`);
+                const batchPromises = newLogs.map(log => addDoc(workoutLogsRef, log));
+                await Promise.all(batchPromises);
+
+                console.log("Treinos do dia salvos com sucesso!");
+                errorMessage.textContent = "Treinos salvos com sucesso!";
+                errorMessage.classList.remove('hidden');
+                errorMessage.classList.add('text-green-600'); // Estilo de sucesso
+
+                // Recarrega o histórico após salvar
+                await loadExercisesForSelectedDate();
+                
+                // Limpa os campos após salvar
+                weightInputs.forEach(input => input.value = '');
+                repsInputs.forEach(input => input.value = '');
+
+            } catch (e) {
+                console.error("Erro ao salvar treinos do dia:", e);
+                errorMessage.textContent = `Erro ao salvar treinos: ${e.message}. Verifique sua conexão.`;
+                errorMessage.classList.remove('hidden');
+                errorMessage.classList.remove('text-green-600'); // Remove estilo de sucesso
+            }
+            // Reset error message style after a short delay
+            setTimeout(() => {
+                errorMessage.classList.remove('text-green-600');
+                if (errorMessage.textContent === "Treinos salvos com sucesso!") {
+                     errorMessage.classList.add('hidden');
+                }
+            }, 3000);
+        }
+
+        // Event Listeners
+        trainingDateInput.addEventListener('change', loadExercisesForSelectedDate);
+        saveDailyWorkoutBtn.addEventListener('click', saveDailyWorkout);
+
+        // Inicializa o Firebase ao carregar a página
+        // Garante que o DOM está carregado antes de tentar parsear o plano
+        document.addEventListener('DOMContentLoaded', initializeFirebase);
+    </script>
+</body>
+</html>
