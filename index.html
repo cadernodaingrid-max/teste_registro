@@ -75,8 +75,8 @@
             <p class="mt-4 text-gray-700 font-semibold">Carregando...</p>
         </div>
 
-        <!-- Conteúdo do App (oculto até que o Firebase esteja pronto) -->
-        <div id="appContent" class="loading-hidden space-y-6">
+        <!-- Conteúdo do App (visível desde o início para depuração) -->
+        <div id="appContent" class="space-y-6"> <!-- Removida a classe 'loading-hidden' para depuração -->
             <p id="userIdDisplay" class="text-sm text-gray-500 break-words mb-4">ID do Usuário: <span class="font-mono text-gray-700"></span></p>
 
             <!-- Seletor de Data -->
@@ -228,7 +228,8 @@
                         console.log("Usuário autenticado:", userId);
                         isAuthReady = true;
                         loadingIndicator.classList.add('hidden'); // Esconde o loading
-                        appContent.classList.remove('loading-hidden'); // Mostra o conteúdo do app
+                        appContent.classList.remove('loading-hidden'); // Removida para depuração no HTML, mas mantida aqui para referência futura
+                        console.log("appContent should now be visible and loadingIndicator hidden.");
 
                         // Define a data de hoje como padrão no input
                         const today = new Date();
@@ -303,6 +304,7 @@
             }
 
             const exercisesForToday = weeklyWorkoutPlan[currentPlanDayKey];
+            console.log(`Exercícios para hoje (${selectedDateString}):`, exercisesForToday); // Log para depuração
 
             for (const exerciseName of exercisesForToday) {
                 const exerciseDiv = document.createElement('div');
