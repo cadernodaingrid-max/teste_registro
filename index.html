@@ -216,6 +216,14 @@
          */
         async function initializeFirebase() {
             try {
+                // Log da configuração do Firebase para depuração
+                console.log("Configuração do Firebase recebida:", firebaseConfig);
+
+                // Verifica se a chave da API está presente na configuração
+                if (!firebaseConfig || !firebaseConfig.apiKey || typeof firebaseConfig.apiKey !== 'string' || firebaseConfig.apiKey.length === 0) {
+                    throw new Error("A chave da API do Firebase está ausente ou inválida na configuração. Por favor, verifique suas variáveis de ambiente.");
+                }
+
                 app = initializeApp(firebaseConfig);
                 auth = getAuth(app);
                 db = getFirestore(app);
@@ -228,7 +236,7 @@
                         console.log("Usuário autenticado:", userId);
                         isAuthReady = true;
                         loadingIndicator.classList.add('hidden'); // Esconde o loading
-                        appContent.classList.remove('loading-hidden'); // Removida para depuração no HTML, mas mantida aqui para referência futura
+                        appContent.classList.remove('loading-hidden'); // Garantir visibilidade
                         console.log("appContent should now be visible and loadingIndicator hidden.");
 
                         // Define a data de hoje como padrão no input
@@ -255,7 +263,7 @@
                 });
             } catch (error) {
                 console.error("Erro ao inicializar Firebase ou autenticar:", error);
-                errorMessage.textContent = `Erro ao carregar o aplicativo. Tente novamente. Detalhes: ${error.message}`;
+                errorMessage.textContent = `Erro ao carregar o aplicativo. Detalhes: ${error.message}. Por favor, verifique a configuração do Firebase.`;
                 errorMessage.classList.remove('hidden');
                 loadingIndicator.classList.add('hidden');
             }
