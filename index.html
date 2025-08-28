@@ -111,7 +111,7 @@
                     </ul>
                 </div>
 
-                <details class="plan-details">
+                <details class="plan-details" open>
                     <summary class="plan-summary">Dia 1: Empurrar A</summary>
                     <ul>
                         <li><span>Supino Inclinado com Halteres</span></li>
@@ -123,7 +123,7 @@
                     </ul>
                 </details>
 
-                <details class="plan-details">
+                <details class="plan-details" open>
                     <summary class="plan-summary">Dia 2: Puxar A</summary>
                     <ul>
                         <li><span>Puxada Alta (Lat Pulldown)</span></li>
@@ -135,7 +135,7 @@
                     </ul>
                 </details>
 
-                <details class="plan-details">
+                <details class="plan-details" open>
                     <summary class="plan-summary">Dia 3: Pernas e Core</summary>
                     <ul>
                         <li><span>Agachamento Livre com Barra</span></li>
@@ -146,7 +146,7 @@
                     </ul>
                 </details>
 
-                <details class="plan-details">
+                <details class="plan-details" open>
                     <summary class="plan-summary">Dia 4: Empurrar B</summary>
                     <ul>
                         <li><span>Desenvolvimento de Ombro com Barra (Sentado)</span></li>
@@ -158,7 +158,7 @@
                     </ul>
                 </details>
 
-                <details class="plan-details">
+                <details class="plan-details" open>
                     <summary class="plan-summary">Dia 5: Puxar B</summary>
                     <ul>
                         <li><span>Barra Fixa (Pull-up)</span></li>
@@ -272,7 +272,7 @@
                 });
                 weeklyWorkoutPlan[dayTitle] = exercises;
             });
-            console.log("Plano de treino semanal parseado:", weeklyWorkoutPlan);
+            console.log("Plano de treino semanal parseado:", weeklyWorkoutPlan); // Log para depuração
         }
 
         /**
@@ -396,6 +396,7 @@
 
             errorMessage.classList.add('hidden'); // Esconde a mensagem de erro
 
+            // Seleciona inputs APENAS dentro do exercisesContainer
             const weightInputs = document.querySelectorAll('#exercisesContainer .weight-input');
             const repsInputs = document.querySelectorAll('#exercisesContainer .reps-input');
             const newLogs = [];
