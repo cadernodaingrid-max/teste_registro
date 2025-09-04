@@ -30,37 +30,47 @@
             border-bottom: 2px solid #e74c3c;
             padding-bottom: 10px;
             margin-bottom: 30px;
-            text-align: center; /* Títulos centralizados para melhor leitura */
+            text-align: center;
+        }
+        h2 {
+            color: #e74c3c;
+            border-bottom: 1px solid #e74c3c;
+            padding-bottom: 5px;
+            margin-top: 25px;
+            margin-bottom: 15px;
         }
         p {
             margin-bottom: 25px;
-            text-align: justify; /* Alinhamento justificado para o parágrafo */
+            text-align: justify;
         }
-        .observacoes-box {
+        .observacoes-box, .aquecimento-box {
             background: #ecf0f1;
-            margin: 15px auto; /* Redução das margens superior e inferior */
+            margin: 15px auto;
             padding: 20px;
             border-radius: 8px;
             box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
         }
-        .observacoes-box h3 {
-            text-align: center; /* Centraliza o título "Observações" */
+        .observacoes-box h3, .aquecimento-box h3 {
+            text-align: center;
         }
-        .observacoes-box ul {
+        .observacoes-box ul, .aquecimento-box ul {
             list-style-type: disc;
             padding-left: 20px;
             margin: 0;
             text-align: justify;
         }
-        .observacoes-box ul li {
+        .observacoes-box ul li, .aquecimento-box ul li {
             background: none;
             margin-bottom: 10px;
             padding: 0;
             box-shadow: none;
         }
+        .aquecimento-box strong {
+            color: #2c3e50;
+        }
         .links-box {
             display: flex;
-            justify-content: space-between; /* Links empurrados para as laterais */
+            justify-content: space-between;
             gap: 20px;
             margin-top: 40px;
             perspective: 1000px;
@@ -69,7 +79,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            flex-grow: 1; /* Permite que os links cresçam para preencher o espaço */
+            flex-grow: 1;
             height: 70px;
             background-color: #3498db;
             color: white;
@@ -80,7 +90,7 @@
             font-size: 1.1em;
             transition: all 0.3s ease;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2),
-                        0 6px 6px rgba(0, 0, 0, 0.1);
+                         0 6px 6px rgba(0, 0, 0, 0.1);
             position: relative;
             transform-style: preserve-3d;
             transform: translateZ(0);
@@ -89,7 +99,7 @@
             background-color: #2980b9;
             transform: translateY(-5px) translateZ(10px);
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3),
-                        0 8px 8px rgba(0, 0, 0, 0.15);
+                         0 8px 8px rgba(0, 0, 0, 0.15);
         }
         .link-3d::before {
             content: '';
@@ -120,6 +130,37 @@
                 <li><strong>Progressão:</strong> Aumente a carga (peso) quando conseguir fazer todas as séries e repetições com boa forma.</li>
                 <li><strong>Cardio:</strong> Faça o cardio após a musculação ou em dias de descanso ativo. A intensidade deve ser moderada a alta.</li>
                 <li><strong>Recuperação:</strong> Garanta que você está dormindo e se alimentando bem para suportar o volume de treino.</li>
+            </ul>
+        </div>
+
+        <div class="aquecimento-box">
+            <h3>Aquecimento Antes do Treino</h3>
+            
+            <h4>1. Aquecimento Geral (5-10 minutos)</h4>
+            <p>O objetivo é elevar sua frequência cardíaca, aumentar o fluxo sanguíneo para os músculos e elevar a temperatura corporal. O ponto ideal é começar a suar levemente.</p>
+            <p><strong>Como fazer:</strong> Use uma atividade cardiovascular de baixa a moderada intensidade. Como você tem acesso a vários equipamentos e também a sua corda de pular, as opções são:</p>
+            <ul>
+                <li><strong>Pular corda:</strong> 5-8 minutos em ritmo constante.</li>
+                <li><strong>Esteira ou Elíptico:</strong> 5-10 minutos em um ritmo confortável.</li>
+                <li><strong>Bicicleta Ergométrica:</strong> 5-10 minutos em um ritmo constante.</li>
+            </ul>
+            
+            <h4>2. Aquecimento Específico e Mobilidade (5 minutos)</h4>
+            <p>Nesta etapa, você prepara as articulações e os músculos que serão mais exigidos no treino do dia. É aqui que você faz alongamentos dinâmicos, que são movimentos controlados, e não alongamentos estáticos (como segurar a perna por 30 segundos).</p>
+            <p><strong>Como fazer (Exemplos):</strong></p>
+            <ul>
+                <li><strong>Para o treino de Empurrar (Peito e Ombros):</strong> Rotação de braços, rotação de ombros, e algumas flexões de joelhos para ativar o peito e o core.</li>
+                <li><strong>Para o treino de Puxar (Costas e Bíceps):</strong> Rotação de tronco, rotação de braços para a frente e para trás, e hang ativo na barra para ativar as escápulas.</li>
+                <li><strong>Para o treino de Pernas:</strong> Agachamentos com o peso do corpo, afundos sem carga e balanços de perna para frente e para trás.</li>
+            </ul>
+
+            <h4>3. Aquecimento com a Carga (2-3 séries)</h4>
+            <p>Este é o último e crucial passo para treinos com pesos. Você prepara o sistema nervoso e os músculos para a carga que vai usar nas suas séries de trabalho.</p>
+            <p><strong>Como fazer:</strong> Para o primeiro exercício de cada grupo muscular do dia (por exemplo, Supino Inclinado com Halteres no seu treino de empurrar, ou o Deadlift no seu treino de puxar), faça séries de aquecimento com uma carga leve.</p>
+            <p><strong>Exemplo para o Agachamento</strong> (se sua carga de trabalho for 40kg):</p>
+            <ul>
+                <li><strong>Série 1:</strong> 10 repetições com a barra (20kg).</li>
+                <li><strong>Série 2:</strong> 5 repetições com uma carga leve (30kg).</li>
             </ul>
         </div>
 
