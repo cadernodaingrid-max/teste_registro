@@ -9,65 +9,65 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #f4f7f6;
             color: #333;
-            margin: 10px; 
+            margin: 10px;
             line-height: 1.5;
-            font-size: 0.9em; 
+            font-size: 0.9em;
         }
         .container {
             max-width: 960px;
-            margin: 15px auto; 
+            margin: 15px auto;
             background-color: #ffffff;
-            padding: 15px; 
-            border-radius: 8px; 
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
         h1 {
             color: #2c3e50;
             text-align: center;
             padding-bottom: 8px;
             margin-bottom: 15px;
-            font-size: 1.8em; 
+            font-size: 1.8em;
         }
         h2 {
             color: #34495e;
-            border-bottom: 1px solid #e0e0e0; 
+            border-bottom: 1px solid #e0e0e0;
             padding-bottom: 6px;
             margin-top: 25px;
             margin-bottom: 10px;
-            font-size: 1.3em; 
+            font-size: 1.3em;
         }
         h3 {
             color: #4a69bd;
             margin-top: 15px;
             margin-bottom: 8px;
-            font-size: 1.1em; 
+            font-size: 1.1em;
         }
         .info-box {
             background-color: #eaf2f8;
-            border-left: 4px solid #5fa2dd; 
+            border-left: 4px solid #5fa2dd;
             padding: 10px;
             margin-bottom: 20px;
             border-radius: 6px;
-            font-size: 0.85em; 
+            font-size: 0.85em;
         }
         .info-box ul {
             list-style: disc;
-            margin-left: 15px; 
+            margin-left: 15px;
         }
         .day-section {
             background-color: #ffffff;
             border: 1px solid #e0e0e0;
             border-radius: 8px;
-            margin-bottom: 12px; 
+            margin-bottom: 12px;
             box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
             overflow: hidden;
         }
         .day-title {
             background-color: #dbe9f6;
             color: #2c3e50;
-            padding: 12px 15px; 
+            padding: 12px 15px;
             border-radius: 5px;
-            font-size: 1.1em; 
+            font-size: 1.1em;
             font-weight: bold;
             cursor: pointer;
             display: flex;
@@ -75,38 +75,38 @@
             align-items: center;
         }
         .day-title .toggle-icon {
-            font-size: 1em; 
+            font-size: 1em;
             transition: transform 0.3s ease;
         }
         .day-section.open .day-title .toggle-icon {
             transform: rotate(90deg);
         }
         .day-content {
-            padding: 0 15px 15px 15px; 
+            padding: 0 15px 15px 15px;
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.7s ease-out, padding 0.7s ease-out;
         }
         .day-section.open .day-content {
-            max-height: 1500px; 
+            max-height: 1500px;
             padding: 15px;
         }
         .exercise-item {
             background-color: #f0f8ff;
             margin-bottom: 8px;
-            padding: 10px 12px; 
+            padding: 10px 12px;
             border-radius: 5px;
-            font-size: 0.9em; 
+            font-size: 0.9em;
             color: #4a4a4a;
             border-left: 3px solid #a7d9f6;
             display: flex;
             align-items: flex-start;
-            transition: all 0.5s ease-in-out; /* Transição para sumir */
+            transition: all 0.5s ease-in-out;
         }
         .exercise-item input[type="checkbox"] {
-            margin-right: 8px; /* Margem menor */
-            min-width: 16px; /* Checkbox menor */
-            min-height: 16px; /* Checkbox menor */
+            margin-right: 8px;
+            min-width: 16px;
+            min-height: 16px;
             cursor: pointer;
             accent-color: #4CAF50;
         }
@@ -115,7 +115,6 @@
             cursor: pointer;
             line-height: 1.2;
         }
-        /* Para os itens que somem, altura e padding viram 0 */
         .exercise-item.removed {
             opacity: 0;
             height: 0;
@@ -127,12 +126,11 @@
             overflow: hidden;
             transition: all 0.5s ease-in-out;
         }
-        .day-content {
-            padding: 15px;
-            text-align: center;
-            font-style: italic;
-            max-height: 1000px; 
-            transition: none;
+        /* Corrigir as regras CSS redundantes/conflitantes */
+        .day-content,
+        .day-title {
+            /* As regras anteriores para .day-content e .day-title foram removidas aqui
+               para evitar conflitos. Apenas a regra abaixo é realmente necessária para o visual. */
         }
         .day-title {
             background-color: #fff3e0;
@@ -153,16 +151,12 @@
             </ul>
         </div>
 
-
-
-        
         <div class="day-section" id="day1">
             <div class="day-title" onclick="toggleDay('day1')">
                 Dia 1 (Segunda-feira): Empurrar (Força)
                 <span class="toggle-icon">▶</span>
             </div>
             <div class="day-content">
-                
                 <h3>Aquecimento específico:</h3>
                 <ul>
                     <li class="exercise-item">
@@ -176,60 +170,55 @@
                     <li class="exercise-item">
                         <input type="checkbox" id="d1-ex3" onchange="removeExercise(this)">
                         <label for="d1-ex3"><strong>Supino Inclinado com Halteres:</strong><br>
-                             <input type="checkbox">Round 1 - 12 reps com 7 kg<br>
-                             <input type="checkbox">Round 2 - 10 reps com 8 kg<br>
-                             <input type="checkbox">Round 3 - 8 reps com 9 kg<br>
-                             <input type="checkbox">Round 4 - 8 reps com 10 kg<br>
+                            <input type="checkbox">Round 1 - 12 reps com 7 kg<br>
+                            <input type="checkbox">Round 2 - 10 reps com 8 kg<br>
+                            <input type="checkbox">Round 3 - 8 reps com 9 kg<br>
+                            <input type="checkbox">Round 4 - 8 reps com 10 kg<br>
                         </label>
                     </li>
-                    
                     <li class="exercise-item">
                         <input type="checkbox" id="d1-ex4" onchange="removeExercise(this)">
                         <label for="d1-ex4"><strong>Supino Reto com Barra:</strong><br>
-                             <input type="checkbox">Round 1 - 12 reps com 0 kg<br>
-                             <input type="checkbox">Round 2 - 10 reps com 2/2 kg<br>
-                             <input type="checkbox">Round 3 - 10 reps com 2/2 kg<br>
-                             <input type="checkbox">Round 4 - 8 reps com 5/5 kg<br>
+                            <input type="checkbox">Round 1 - 12 reps com 0 kg<br>
+                            <input type="checkbox">Round 2 - 10 reps com 2/2 kg<br>
+                            <input type="checkbox">Round 3 - 10 reps com 2/2 kg<br>
+                            <input type="checkbox">Round 4 - 8 reps com 5/5 kg<br>
                         </label>
                     </li>
-                    
                     <li class="exercise-item">
                         <input type="checkbox" id="d1-ex5" onchange="removeExercise(this)">
                         <label for="d1-ex5"><strong>Desenvolvimento de Ombro com Halteres:</strong><br>
-                             <input type="checkbox">Round 1 - 12 reps com 6 kg<br>
-                             <input type="checkbox">Round 2 - 10 reps com 7 kg<br>
-                             <input type="checkbox">Round 3 - 10 reps com 7 kg<br>
-                             <input type="checkbox">Round 4 - 8 reps com 8 kg<br>
+                            <input type="checkbox">Round 1 - 12 reps com 6 kg<br>
+                            <input type="checkbox">Round 2 - 10 reps com 7 kg<br>
+                            <input type="checkbox">Round 3 - 10 reps com 7 kg<br>
+                            <input type="checkbox">Round 4 - 8 reps com 8 kg<br>
                         </label>
                     </li>
-                    
                     <li class="exercise-item">
                         <input type="checkbox" id="d1-ex6" onchange="removeExercise(this)">
                         <label for="d1-ex6"><strong>Crucifixo na Máquina ou Cabo:</strong><br>
-                             <input type="checkbox">Round 1 - 12 reps com 17.5 kg<br>
-                             <input type="checkbox">Round 2 - 10 reps com 20 kg<br>
-                             <input type="checkbox">Round 3 - 9 reps com 22.5 kg<br>
-                             <input type="checkbox">Round 4 - 8 reps com 25 kg<br>
+                            <input type="checkbox">Round 1 - 12 reps com 17.5 kg<br>
+                            <input type="checkbox">Round 2 - 10 reps com 20 kg<br>
+                            <input type="checkbox">Round 3 - 9 reps com 22.5 kg<br>
+                            <input type="checkbox">Round 4 - 8 reps com 25 kg<br>
                         </label>
                     </li>
-                    
                     <li class="exercise-item">
                         <input type="checkbox" id="d1-ex2" onchange="removeExercise(this)">
                         <label for="d1-ex7"><strong>Tríceps Testa com Halteres:</strong><br>
-                             <input type="checkbox">Round 1 - 12 reps com 5/5 kg<br>
-                             <input type="checkbox">Round 2 - 10 reps com 6/6 kg<br>
-                             <input type="checkbox">Round 3 - 9 reps com 7/8 kg<br>
-                             <input type="checkbox">Round 4 - 8 reps com 8/8 kg<br>
+                            <input type="checkbox">Round 1 - 12 reps com 5/5 kg<br>
+                            <input type="checkbox">Round 2 - 10 reps com 6/6 kg<br>
+                            <input type="checkbox">Round 3 - 9 reps com 7/8 kg<br>
+                            <input type="checkbox">Round 4 - 8 reps com 8/8 kg<br>
                         </label>
                     </li>
-                    
                     <li class="exercise-item">
                         <input type="checkbox" id="d1-ex7" onchange="removeExercise(this)">
                         <label for="d1-ex7"><strong>Extensão de Tríceps na Polia Alta:</strong><br>
-                             <input type="checkbox">Round 1 - 12 reps com 7.5 kg<br>
-                             <input type="checkbox">Round 2 - 12 reps com 7.5 kg<br>
-                             <input type="checkbox">Round 3 - 9 reps com 10 kg<br>
-                             <input type="checkbox">Round 4 - 9 reps com 10 kg<br>
+                            <input type="checkbox">Round 1 - 12 reps com 7.5 kg<br>
+                            <input type="checkbox">Round 2 - 12 reps com 7.5 kg<br>
+                            <input type="checkbox">Round 3 - 9 reps com 10 kg<br>
+                            <input type="checkbox">Round 4 - 9 reps com 10 kg<br>
                         </label>
                     </li>
                 </ul>
@@ -239,17 +228,17 @@
                     <li class="exercise-item">
                         <input type="checkbox" id="d1-ex8" onchange="removeExercise(this)">
                         <label for="d1-ex8"><strong>Extensão Lombar:</strong><br>
-                             <input type="checkbox">Round 1 - 10 reps + 10s<br>
-                             <input type="checkbox">Round 2 - 10 reps + 10s<br>
-                             <input type="checkbox">Round 3 - 10 reps + 10s<br>
+                            <input type="checkbox">Round 1 - 10 reps + 10s<br>
+                            <input type="checkbox">Round 2 - 10 reps + 10s<br>
+                            <input type="checkbox">Round 3 - 10 reps + 10s<br>
                         </label>
                     </li>
                     <li class="exercise-item">
                         <input type="checkbox" id="d1-ex9" onchange="removeExercise(this)">
                         <label for="d1-ex9"><strong>L-sit:</strong><br>
-                             <input type="checkbox">Round 1 - 10 reps + 10s<br>
-                             <input type="checkbox">Round 2 - 10 reps + 10s<br>
-                             <input type="checkbox">Round 3 - 10 reps + 10s<br>
+                            <input type="checkbox">Round 1 - 10 reps + 10s<br>
+                            <input type="checkbox">Round 2 - 10 reps + 10s<br>
+                            <input type="checkbox">Round 3 - 10 reps + 10s<br>
                         </label>
                     </li>
                 </ul>
@@ -260,16 +249,12 @@
             </div>
         </div>
 
-
-
-        
         <div class="day-section" id="day2">
             <div class="day-title" onclick="toggleDay('day2')">
                 Dia 2 (Terça-feira): Puxar (Força)
                 <span class="toggle-icon">▶</span>
             </div>
             <div class="day-content">
-                
                 <h3>Aquecimento Específico:</h3>
                 <ul>
                     <li class="exercise-item">
@@ -283,81 +268,74 @@
                     <li class="exercise-item">
                         <input type="checkbox" id="d2-ex3" onchange="removeExercise(this)">
                         <label for="d2-ex3"><strong>Puxada na Polia Alta:</strong><br>
-                             <input type="checkbox">Round 1 - 12 reps com 26 kg<br>
-                             <input type="checkbox">Round 2 - 11 reps com 33 kg<br>
-                             <input type="checkbox">Round 3 - 10 reps com 40 kg<br>
-                             <input type="checkbox">Round 4 - 9 reps com 47 kg<br>
+                            <input type="checkbox">Round 1 - 12 reps com 26 kg<br>
+                            <input type="checkbox">Round 2 - 11 reps com 33 kg<br>
+                            <input type="checkbox">Round 3 - 10 reps com 40 kg<br>
+                            <input type="checkbox">Round 4 - 9 reps com 47 kg<br>
                         </label>
                     </li>
-                    
                     <li class="exercise-item">
                         <input type="checkbox" id="d2-ex4" onchange="removeExercise(this)">
                         <label for="d2-ex4"><strong>Remada Sentada (Cable Row):</strong><br>
-                             <input type="checkbox">Round 1 - 12 reps com 10 kg<br>
-                             <input type="checkbox">Round 2 - 10 reps com 13.5 kg<br>
-                             <input type="checkbox">Round 3 - 10 reps com 13.5 kg<br>
-                             <input type="checkbox">Round 4 - 8 reps com 17 kg<br>
+                            <input type="checkbox">Round 1 - 12 reps com 10 kg<br>
+                            <input type="checkbox">Round 2 - 10 reps com 13.5 kg<br>
+                            <input type="checkbox">Round 3 - 10 reps com 13.5 kg<br>
+                            <input type="checkbox">Round 4 - 8 reps com 17 kg<br>
                         </label>
                     </li>
-                    
                     <li class="exercise-item">
                         <input type="checkbox" id="d2-ex5" onchange="removeExercise(this)">
                         <label for="d2-ex5"><strong>Remada Curvada com Halteres (Unilateral):</strong><br>
-                             <input type="checkbox">Round 1 - 12 reps com 6 kg<br>
-                             <input type="checkbox">Round 2 - 11 reps com 7 kg<br>
-                             <input type="checkbox">Round 3 - 10 reps com 8 kg<br>
-                             <input type="checkbox">Round 4 - 8 reps com 9 kg<br>
+                            <input type="checkbox">Round 1 - 12 reps com 6 kg<br>
+                            <input type="checkbox">Round 2 - 11 reps com 7 kg<br>
+                            <input type="checkbox">Round 3 - 10 reps com 8 kg<br>
+                            <input type="checkbox">Round 4 - 8 reps com 9 kg<br>
                         </label>
                     </li>
-                                       
                     <li class="exercise-item">
                         <input type="checkbox" id="d2-ex2" onchange="removeExercise(this)">
                         <label for="d2-ex6"><strong>Rosca Direta com Barra EZ:</strong><br>
-                             <input type="checkbox">Round 1 - 12 reps com 10 kg<br>
-                             <input type="checkbox">Round 2 - 12 reps com 10 kg<br>
-                             <input type="checkbox">Round 3 - 8 reps com 12.5 kg<br>
-                             <input type="checkbox">Round 4 - 8 reps com 12.5 kg<br>
+                            <input type="checkbox">Round 1 - 12 reps com 10 kg<br>
+                            <input type="checkbox">Round 2 - 12 reps com 10 kg<br>
+                            <input type="checkbox">Round 3 - 8 reps com 12.5 kg<br>
+                            <input type="checkbox">Round 4 - 8 reps com 12.5 kg<br>
                         </label>
                     </li>
-                    
                     <li class="exercise-item">
                         <input type="checkbox" id="d2-ex6" onchange="removeExercise(this)">
                         <label for="d2-ex6"><strong>Rosca Martelo com Halteres:</strong><br>
-                             <input type="checkbox">Round 1 - 12 reps com 4 kg<br>
-                             <input type="checkbox">Round 2 - 11 reps com 5 kg<br>
-                             <input type="checkbox">Round 3 - 10 reps com 6 kg<br>
-                             <input type="checkbox">Round 4 - 8 reps com 7 kg<br>
+                            <input type="checkbox">Round 1 - 12 reps com 4 kg<br>
+                            <input type="checkbox">Round 2 - 11 reps com 5 kg<br>
+                            <input type="checkbox">Round 3 - 10 reps com 6 kg<br>
+                            <input type="checkbox">Round 4 - 8 reps com 7 kg<br>
                         </label>
                     </li>
-                    
                     <li class="exercise-item">
                         <input type="checkbox" id="d2-ex7" onchange="removeExercise(this)">
                         <label for="d2-ex7"><strong>Face Pull:</strong><br>
-                             <input type="checkbox">Round 1 - 12 reps com 5 kg<br>
-                             <input type="checkbox">Round 2 - 12 reps com 5 kg<br>
-                             <input type="checkbox">Round 3 - 9 reps com 7.5 kg<br>
-                             <input type="checkbox">Round 4 - 9 reps com 7.5 kg<br>
+                            <input type="checkbox">Round 1 - 12 reps com 5 kg<br>
+                            <input type="checkbox">Round 2 - 12 reps com 5 kg<br>
+                            <input type="checkbox">Round 3 - 9 reps com 7.5 kg<br>
+                            <input type="checkbox">Round 4 - 9 reps com 7.5 kg<br>
                         </label>
                     </li>
                 </ul>
-
-                
                 <h3>Core:</h3>
                 <ul>
                     <li class="exercise-item">
                         <input type="checkbox" id="d2-ex8" onchange="removeExercise(this)">
                         <label for="d1-ex8"><strong>Extensão Lombar:</strong><br>
-                             <input type="checkbox">Round 1 - 10 reps + 10s<br>
-                             <input type="checkbox">Round 2 - 10 reps + 10s<br>
-                             <input type="checkbox">Round 3 - 10 reps + 10s<br>
+                            <input type="checkbox">Round 1 - 10 reps + 10s<br>
+                            <input type="checkbox">Round 2 - 10 reps + 10s<br>
+                            <input type="checkbox">Round 3 - 10 reps + 10s<br>
                         </label>
                     </li>
                     <li class="exercise-item">
                         <input type="checkbox" id="d2-ex9" onchange="removeExercise(this)">
                         <label for="d1-ex9"><strong>L-sit:</strong><br>
-                             <input type="checkbox">Round 1 - 10 reps + 10s<br>
-                             <input type="checkbox">Round 2 - 10 reps + 10s<br>
-                             <input type="checkbox">Round 3 - 10 reps + 10s<br>
+                            <input type="checkbox">Round 1 - 10 reps + 10s<br>
+                            <input type="checkbox">Round 2 - 10 reps + 10s<br>
+                            <input type="checkbox">Round 3 - 10 reps + 10s<br>
                         </label>
                     </li>
                 </ul>
@@ -365,25 +343,20 @@
                     <input type="checkbox" id="d2-ex10" onchange="removeExercise(this)">
                     <label for="d1-ex10"><strong>Cardio Final:</strong>25 minutos de Esteira</label>
                 </li>
-                
             </div>
         </div>
 
-
-        
-
-            <div class="day-section" id="day2">
+        <div class="day-section" id="day3">
             <div class="day-title" onclick="toggleDay('day3')">
-                Dia 3 (Quarta-feira): Pernas (Poder e Equilíbrio
+                Dia 3 (Quarta-feira): Pernas (Poder e Equilíbrio)
                 <span class="toggle-icon">▶</span>
             </div>
             <div class="day-content">
-                
                 <h3>Aquecimento Específico:</h3>
                 <ul>
                     <li class="exercise-item">
                         <input type="checkbox" id="d3-ex1" onchange="removeExercise(this)">
-                        <label for="d2-ex1">10 reps de Agachamento Livre</label>
+                        <label for="d3-ex1">10 reps de Agachamento Livre</label>
                     </li>
                 </ul>
 
@@ -391,61 +364,56 @@
                 <ul>
                     <li class="exercise-item">
                         <input type="checkbox" id="d3-ex3" onchange="removeExercise(this)">
-                        <label for="d2-ex3"><strong>Agachamento com Barra:</strong><br>
-                             <input type="checkbox">Round 1 - 12 reps<br>
-                             <input type="checkbox">Round 2 - 12 reps<br>
-                             <input type="checkbox">Round 3 - 12 reps<br>
-                             <input type="checkbox">Round 4 - 12 reps<br>
+                        <label for="d3-ex3"><strong>Agachamento com Barra:</strong><br>
+                            <input type="checkbox">Round 1 - 12 reps<br>
+                            <input type="checkbox">Round 2 - 12 reps<br>
+                            <input type="checkbox">Round 3 - 12 reps<br>
+                            <input type="checkbox">Round 4 - 12 reps<br>
                         </label>
                     </li>
-                    
                     <li class="exercise-item">
                         <input type="checkbox" id="d3-ex4" onchange="removeExercise(this)">
-                        <label for="d2-ex4"><strong>Leg Press:</strong><br>
-                             <input type="checkbox">Round 1 - 12 reps com 33.5 kg<br>
-                             <input type="checkbox">Round 2 - 10 reps com 35 kg<br>
-                             <input type="checkbox">Round 3 - 10 reps com 35 kg<br>
-                             <input type="checkbox">Round 4 - 8 reps com 37.5 kg<br>
+                        <label for="d3-ex4"><strong>Leg Press:</strong><br>
+                            <input type="checkbox">Round 1 - 12 reps com 33.5 kg<br>
+                            <input type="checkbox">Round 2 - 10 reps com 35 kg<br>
+                            <input type="checkbox">Round 3 - 10 reps com 35 kg<br>
+                            <input type="checkbox">Round 4 - 8 reps com 37.5 kg<br>
                         </label>
                     </li>
-                    
                     <li class="exercise-item">
                         <input type="checkbox" id="d3-ex5" onchange="removeExercise(this)">
-                        <label for="d2-ex5"><strong>Mesa Flexora:</strong><br>
-                             <input type="checkbox">Round 1 - 12 reps com 20 kg<br>
-                             <input type="checkbox">Round 2 - 11 reps com 22.5 kg<br>
-                             <input type="checkbox">Round 3 - 8 reps com 25 kg<br>
-                             <input type="checkbox">Round 4 - 8 reps com 25 kg<br>
+                        <label for="d3-ex5"><strong>Mesa Flexora:</strong><br>
+                            <input type="checkbox">Round 1 - 12 reps com 20 kg<br>
+                            <input type="checkbox">Round 2 - 11 reps com 22.5 kg<br>
+                            <input type="checkbox">Round 3 - 8 reps com 25 kg<br>
+                            <input type="checkbox">Round 4 - 8 reps com 25 kg<br>
                         </label>
                     </li>
-                                       
                     <li class="exercise-item">
                         <input type="checkbox" id="d3-ex6" onchange="removeExercise(this)">
-                        <label for="d2-ex6"><strong>Stiff com Halteres:</strong><br>
-                             <input type="checkbox">Round 1 - 12 reps com 6 kg<br>
-                             <input type="checkbox">Round 2 - 11 reps com 7 kg<br>
-                             <input type="checkbox">Round 3 - 10 reps com 8 kg<br>
-                             <input type="checkbox">Round 4 - 9 reps com 9 kg<br>
+                        <label for="d3-ex6"><strong>Stiff com Halteres:</strong><br>
+                            <input type="checkbox">Round 1 - 12 reps com 6 kg<br>
+                            <input type="checkbox">Round 2 - 11 reps com 7 kg<br>
+                            <input type="checkbox">Round 3 - 10 reps com 8 kg<br>
+                            <input type="checkbox">Round 4 - 9 reps com 9 kg<br>
                         </label>
                     </li>
-                    
                     <li class="exercise-item">
                         <input type="checkbox" id="d3-ex6" onchange="removeExercise(this)">
-                        <label for="d2-ex6"><strong>Afundo com Halteres:</strong><br>
-                             <input type="checkbox">Round 1 - 12 reps com 4 kg<br>
-                             <input type="checkbox">Round 2 - 11 reps com 5 kg<br>
-                             <input type="checkbox">Round 3 - 10 reps com 6 kg<br>
-                             <input type="checkbox">Round 4 - 8 reps com 7 kg<br>
+                        <label for="d3-ex6"><strong>Afundo com Halteres:</strong><br>
+                            <input type="checkbox">Round 1 - 12 reps com 4 kg<br>
+                            <input type="checkbox">Round 2 - 11 reps com 5 kg<br>
+                            <input type="checkbox">Round 3 - 10 reps com 6 kg<br>
+                            <input type="checkbox">Round 4 - 8 reps com 7 kg<br>
                         </label>
                     </li>
-                    
                     <li class="exercise-item">
                         <input type="checkbox" id="d3-ex7" onchange="removeExercise(this)">
-                        <label for="d2-ex7"><strong>Pistol Squat:</strong><br>
-                             <input type="checkbox">Round 1 - 12 reps<br>
-                             <input type="checkbox">Round 2 - 12 reps<br>
-                             <input type="checkbox">Round 3 - 12 reps<br>
-                             <input type="checkbox">Round 4 - 12 reps<br>
+                        <label for="d3-ex7"><strong>Pistol Squat:</strong><br>
+                            <input type="checkbox">Round 1 - 12 reps<br>
+                            <input type="checkbox">Round 2 - 12 reps<br>
+                            <input type="checkbox">Round 3 - 12 reps<br>
+                            <input type="checkbox">Round 4 - 12 reps<br>
                         </label>
                     </li>
                 </ul>
@@ -454,33 +422,28 @@
                 <ul>
                     <li class="exercise-item">
                         <input type="checkbox" id="d3-ex8" onchange="removeExercise(this)">
-                        <label for="d1-ex8"><strong>Extensão Lombar:</strong><br>
-                             <input type="checkbox">Round 1 - 10 reps + 10s<br>
-                             <input type="checkbox">Round 2 - 10 reps + 10s<br>
-                             <input type="checkbox">Round 3 - 10 reps + 10s<br>
+                        <label for="d3-ex8"><strong>Extensão Lombar:</strong><br>
+                            <input type="checkbox">Round 1 - 10 reps + 10s<br>
+                            <input type="checkbox">Round 2 - 10 reps + 10s<br>
+                            <input type="checkbox">Round 3 - 10 reps + 10s<br>
                         </label>
                     </li>
                     <li class="exercise-item">
                         <input type="checkbox" id="d3-ex9" onchange="removeExercise(this)">
-                        <label for="d1-ex9"><strong>L-sit:</strong><br>
-                             <input type="checkbox">Round 1 - 10 reps + 10s<br>
-                             <input type="checkbox">Round 2 - 10 reps + 10s<br>
-                             <input type="checkbox">Round 3 - 10 reps + 10s<br>
+                        <label for="d3-ex9"><strong>L-sit:</strong><br>
+                            <input type="checkbox">Round 1 - 10 reps + 10s<br>
+                            <input type="checkbox">Round 2 - 10 reps + 10s<br>
+                            <input type="checkbox">Round 3 - 10 reps + 10s<br>
                         </label>
                     </li>
                 </ul>
                 <li class="exercise-item">
                     <input type="checkbox" id="d3-ex10" onchange="removeExercise(this)">
-                    <label for="d1-ex10"><strong>Cardio Final:</strong>25 minutos de Esteira</label>
+                    <label for="d3-ex10"><strong>Cardio Final:</strong>25 minutos de Esteira</label>
                 </li>
-                
             </div>
         </div>
 
-
-    
-        
-        
         <div class="day-section" id="day4">
             <div class="day-title" onclick="toggleDay('day4')">
                 Dia 4 (Quinta-feira): Empurrar (Calistenia)
@@ -488,7 +451,6 @@
             </div>
             <div class="day-content">
                 <h3>Objetivo: Praticar movimentos específicos de calistenia e desenvolver a força e técnica necessárias.</h3>
-                
                 <h3>Aquecimento:</h3>
                 <ul>
                     <li class="exercise-item">
@@ -502,57 +464,52 @@
                     <li class="exercise-item">
                         <input type="checkbox" id="d4-ex1" onchange="removeExercise(this)">
                         <label for="d4-ex1"><strong>Flexões no Paralete:</strong><br>
-                             <input type="checkbox">Round 1 - até a falha<br>
-                             <input type="checkbox">Round 2 - até a falha<br>
-                             <input type="checkbox">Round 3 - até a falha<br>
-                             <input type="checkbox">Round 4 - até a falha<br>
+                            <input type="checkbox">Round 1 - até a falha<br>
+                            <input type="checkbox">Round 2 - até a falha<br>
+                            <input type="checkbox">Round 3 - até a falha<br>
+                            <input type="checkbox">Round 4 - até a falha<br>
                         </label>
                     </li>
-                    
                     <li class="exercise-item">
                         <input type="checkbox" id="d4-ex3" onchange="removeExercise(this)">
                         <label for="d4-ex3"><strong>Dips no Paralete:</strong><br>
-                             <input type="checkbox">Round 1 - até a falha<br>
-                             <input type="checkbox">Round 2 - até a falha<br>
-                             <input type="checkbox">Round 3 - até a falha<br>
-                             <input type="checkbox">Round 4 - até a falha<br>
+                            <input type="checkbox">Round 1 - até a falha<br>
+                            <input type="checkbox">Round 2 - até a falha<br>
+                            <input type="checkbox">Round 3 - até a falha<br>
+                            <input type="checkbox">Round 4 - até a falha<br>
                         </label>
                     </li>
-                    
                     <li class="exercise-item">
                         <input type="checkbox" id="d4-ex4" onchange="removeExercise(this)">
                         <label for="d4-ex4"><strong>Pike Push-up:</strong><br>
-                             <input type="checkbox">Round 1 - até a falha<br>
-                             <input type="checkbox">Round 2 - até a falha<br>
-                             <input type="checkbox">Round 3 - até a falha<br>
-                             <input type="checkbox">Round 4 - até a falha<br>
+                            <input type="checkbox">Round 1 - até a falha<br>
+                            <input type="checkbox">Round 2 - até a falha<br>
+                            <input type="checkbox">Round 3 - até a falha<br>
+                            <input type="checkbox">Round 4 - até a falha<br>
                         </label>
                     </li>
-                    
                     <li class="exercise-item">
                         <input type="checkbox" id="d4-ex5" onchange="removeExercise(this)">
-                        <label for="d4-ex5"><strong> V-Up:</strong><br>
-                             <input type="checkbox">Round 1 - até a falha<br>
-                             <input type="checkbox">Round 2 - até a falha<br>
-                             <input type="checkbox">Round 3 - até a falha<br>
+                        <label for="d4-ex5"><strong>V-Up:</strong><br>
+                            <input type="checkbox">Round 1 - até a falha<br>
+                            <input type="checkbox">Round 2 - até a falha<br>
+                            <input type="checkbox">Round 3 - até a falha<br>
                         </label>
                     </li>
-                    
                     <li class="exercise-item">
                         <input type="checkbox" id="d4-ex6" onchange="removeExercise(this)">
                         <label for="d4-ex6"><strong>L-sit na paralela:</strong><br>
-                             <input type="checkbox">Round 1 - até a falha<br>
-                             <input type="checkbox">Round 2 - até a falha<br>
-                             <input type="checkbox">Round 3 - até a falha<br>
+                            <input type="checkbox">Round 1 - até a falha<br>
+                            <input type="checkbox">Round 2 - até a falha<br>
+                            <input type="checkbox">Round 3 - até a falha<br>
                         </label>
                     </li>
-                    
                     <li class="exercise-item">
                         <input type="checkbox" id="d4-ex7" onchange="removeExercise(this)">
                         <label for="d4-ex7"><strong>Três Apoios:</strong><br>
-                             <input type="checkbox">Round 1 - 30s<br>
-                             <input type="checkbox">Round 2 - 30s<br>
-                             <input type="checkbox">Round 3 - 30s<br>
+                            <input type="checkbox">Round 1 - 30s<br>
+                            <input type="checkbox">Round 2 - 30s<br>
+                            <input type="checkbox">Round 3 - 30s<br>
                         </label>
                     </li>
                 </ul>
@@ -562,17 +519,17 @@
                     <li class="exercise-item">
                         <input type="checkbox" id="d4-ex9" onchange="removeExercise(this)">
                         <label for="d4-ex9"><strong>Abdominal na Bola de Pilates (Crunch na Bola):</strong><br>
-                             <input type="checkbox">Round 1 - 15 reps<br>
-                             <input type="checkbox">Round 2 - 15 reps<br>
-                             <input type="checkbox">Round 3 - 15 reps<br>
+                            <input type="checkbox">Round 1 - 15 reps<br>
+                            <input type="checkbox">Round 2 - 15 reps<br>
+                            <input type="checkbox">Round 3 - 15 reps<br>
                         </label>
                     </li>
                     <li class="exercise-item">
                         <input type="checkbox" id="d4-ex10" onchange="removeExercise(this)">
                         <label for="d4-ex10"><strong>Rotação Russa (com ou sem peso de punho):</strong><br>
-                             <input type="checkbox">Round 1 - 15/15 reps<br>
-                             <input type="checkbox">Round 2 - 15/15 reps<br>
-                             <input type="checkbox">Round 3 - 15/15 reps<br>
+                            <input type="checkbox">Round 1 - 15/15 reps<br>
+                            <input type="checkbox">Round 2 - 15/15 reps<br>
+                            <input type="checkbox">Round 3 - 15/15 reps<br>
                         </label>
                     </li>
                 </ul>
@@ -583,103 +540,71 @@
             </div>
         </div>
 
-
-
-        
-        
         <div class="day-section" id="day5">
             <div class="day-title" onclick="toggleDay('day5')">
                 Dia 5 (Sexta-feira): Puxar (Calistenia)
                 <span class="toggle-icon">▶</span>
             </div>
             <div class="day-content">
-                
-
                 <h3>Treino de Força:</h3>
                 <ul>
                     <li class="exercise-item">
                         <input type="checkbox" id="d5-ex2" onchange="removeExercise(this)">
                         <label for="d5-ex2"><strong>Remada Invertida na Barra Fixa</strong><br>
-                             <input type="checkbox">Round 1 - até a falha<br>
-                             <input type="checkbox">Round 2 - até a falha<br>
-                             <input type="checkbox">Round 3 - até a falha<br>
-                             <input type="checkbox">Round 4 - até a falha<br>
+                            <input type="checkbox">Round 1 - até a falha<br>
+                            <input type="checkbox">Round 2 - até a falha<br>
+                            <input type="checkbox">Round 3 - até a falha<br>
+                            <input type="checkbox">Round 4 - até a falha<br>
                         </label>
                     </li>
                     <li class="exercise-item">
                         <input type="checkbox" id="d5-ex3" onchange="removeExercise(this)">
                         <label for="d5-ex3"><strong>Puxada na Barra Fixa (assistida):</strong><br>
-                             <input type="checkbox">Round 1 - até a falha<br>
-                             <input type="checkbox">Round 2 - até a falha<br>
-                             <input type="checkbox">Round 3 - até a falha<br>
-                             <input type="checkbox">Round 4 - até a falha<br>
+                            <input type="checkbox">Round 1 - até a falha<br>
+                            <input type="checkbox">Round 2 - até a falha<br>
+                            <input type="checkbox">Round 3 - até a falha<br>
+                            <input type="checkbox">Round 4 - até a falha<br>
                         </label>
                     </li>
                     <li class="exercise-item">
                         <input type="checkbox" id="d5-ex4" onchange="removeExercise(this)">
                         <label for="d5-ex4"><strong>Puxada na Polia Alta com Pegada Fechada:</strong><br>
-                             <input type="checkbox">Round 1 - até a falha<br>
-                             <input type="checkbox">Round 2 - até a falha<br>
-                             <input type="checkbox">Round 3 - até a falha<br>
-                             <input type="checkbox">Round 4 - até a falha<br>
+                            <input type="checkbox">Round 1 - até a falha<br>
+                            <input type="checkbox">Round 2 - até a falha<br>
+                            <input type="checkbox">Round 3 - até a falha<br>
+                            <input type="checkbox">Round 4 - até a falha<br>
                         </label>
                     </li>
                     <li class="exercise-item">
                         <input type="checkbox" id="d5-ex5" onchange="removeExercise(this)">
                         <label for="d5-ex5"><strong>Rosca Concentrada com Halter:</strong><br>
-                             <input type="checkbox">Round 1 - até a falha<br>
-                             <input type="checkbox">Round 2 - até a falha<br>
-                             <input type="checkbox">Round 3 - até a falha<br>
-                             <input type="checkbox">Round 4 - até a falha<br>
+                            <input type="checkbox">Round 1 - até a falha<br>
+                            <input type="checkbox">Round 2 - até a falha<br>
+                            <input type="checkbox">Round 3 - até a falha<br>
+                            <input type="checkbox">Round 4 - até a falha<br>
                         </label>
                     </li>
                     <li class="exercise-item">
                         <input type="checkbox" id="d5-ex6" onchange="removeExercise(this)">
                         <label for="d5-ex6"><strong>Rosca no Banco Scott com Halteres:</strong><br>
-                             <input type="checkbox">Round 1 - até a falha<br>
-                             <input type="checkbox">Round 2 - até a falha<br>
-                             <input type="checkbox">Round 3 - até a falha<br>
-                             <input type="checkbox">Round 4 - até a falha<br>
-                        </label>
-                    </li>
-                    <li class="exercise-item">
-                        <input type="checkbox" id="d5-ex7" onchange="removeExercise(this)">
-                        <label for="d5-ex7"><strong>Hang Passivo na Barra:</strong><br>
-                             <input type="checkbox">Round 1 - até a falha<br>
-                             <input type="checkbox">Round 2 - até a falha<br>
-                             <input type="checkbox">Round 3 - até a falha<br>
+                            <input type="checkbox">Round 1 - até a falha<br>
+                            <input type="checkbox">Round 2 - até a falha<br>
+                            <input type="checkbox">Round 3 - até a falha<br>
+                            <input type="checkbox">Round 4 - até a falha<br>
                         </label>
                     </li>
                 </ul>
-
-                <h3>Core (5-10 minutos):</h3>
-                <ul>
-                    <li class="exercise-item">
-                        <input type="checkbox" id="d5-ex8" onchange="removeExercise(this)">
-                        <label for="d5-ex8"><strong>Rotação de Tronco Russo com Pés no Chão:</strong><br>
-                             <input type="checkbox">Round 1 - 15/15 reps<br>
-                             <input type="checkbox">Round 2 - 15/15 reps<br>
-                             <input type="checkbox">Round 3 - 15/15 reps<br>
-                        </label>
-                    </li>
-                    <li class="exercise-item">
-                        <input type="checkbox" id="d5-ex9" onchange="removeExercise(this)">
-                        <label for="d5-ex9"><strong>Prancha com Avanço de Quadril (Mountain Climber Lento):</strong><br>
-                             <input type="checkbox">Round 1 - 15/15 reps<br>
-                             <input type="checkbox">Round 2 - 15/15 reps<br>
-                             <input type="checkbox">Round 3 - 15/15 reps<br>
-                        </label>
-                    </li>
-                </ul>
+                <li class="exercise-item">
+                    <input type="checkbox" id="d5-ex7" onchange="removeExercise(this)">
+                    <label for="d5-ex7"><strong>Alongamento Final (10 minutos):</strong> Foco em punhos, ombros, peito e core.</label>
+                </li>
             </div>
         </div>
-
-
     </div>
-
+    
     <script>
-        function toggleDay(id) {
-            const daySection = document.getElementById(id);
+        function toggleDay(dayId) {
+            const daySection = document.getElementById(dayId);
             daySection.classList.toggle('open');
         }
 
@@ -687,14 +612,10 @@
             const exerciseItem = checkbox.closest('.exercise-item');
             if (checkbox.checked) {
                 exerciseItem.classList.add('removed');
-                exerciseItem.addEventListener('transitionend', function handler() {
-                    exerciseItem.remove();
-                    exerciseItem.removeEventListener('transitionend', handler);
-                }, { once: true });
             } else {
+                exerciseItem.classList.remove('removed');
             }
         }
     </script>
-
 </body>
 </html>
